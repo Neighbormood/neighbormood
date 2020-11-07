@@ -54,7 +54,7 @@ def login_user():
         engine.execute(f"""INSERT INTO google2user VALUES ({json['google_id']}, {user_id})""")
     else:
         user_id = result[0][0]
-    return jsonify({"uid":user_id})
+    return jsonify({"uid": user_id})
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
