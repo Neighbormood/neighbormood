@@ -42,7 +42,7 @@ def user_groups(user_id):
 @app.route('/users/<user_id>/add_mood',methods=["PUT"])
 def add_mood(user_id):
     json = request.json
-    engine.execute(f"""INSERT INTO mood(user,timestamp,mood) VALUES ({json['uid']}, {json['date'] + "-" + json['time']}, {json['mood']})""")
+    engine.execute(f"""INSERT INTO mood("user",timestamp,mood) VALUES ({json['uid']}, {json['date'] + " " + json['time']}, {json['mood']})""")
     return jsonify({'result': True})
 
 @app.route('/sign_user',methods=["POST"])
@@ -51,10 +51,10 @@ def login_user():
     result = engine.execute(f"""SELECT user FROM google2user WHERE id={json["google_id"]}""").fetchall()
     if not len(result):
         user_id = engine.execute(f"""INSERT INTO "user" VALUES ((SELECT max(id+1) FROM "user")) returning id;""").fetchone()[0]
-        engine.execute(f"""INSERT INTO google2user VALUES ({json['google_id']},{user_id})""")
+        engine.execute(f"""INSERT INTO google2user VALUES ({json['google_id']}, {user_id})""")
     else:
         user_id = result[0][0]
-    return user_id
+    return jsonify({"uid",user_id})
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
