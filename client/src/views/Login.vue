@@ -47,10 +47,8 @@ export default {
     }
   },
   created() {
-    let that = this;
     let checkGauthLoad = setInterval(function() {
-      that.isSignIn = that.$gAuth.isAuthorized;
-      if (that.isSignIn) {
+      if (localStorage.userId) {
         clearInterval(checkGauthLoad);
         router.push({ name: "User" });
       }
