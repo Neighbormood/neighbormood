@@ -50,7 +50,7 @@ def login_user():
     json = request.json
     result = engine.execute(f"""SELECT user FROM google2user WHERE id={json["google_id"]}""").fetchall()
     if not len(result):
-        user_id = engine.execute(f"""INSERT INTO "user" VALUES ((SELECT max(id+1) FROM "user")) returning id;""").fechone()[0]
+        user_id = engine.execute(f"""INSERT INTO "user" VALUES ((SELECT max(id+1) FROM "user")) returning id;""").fetchone()[0]
         engine.execute(f"""INSERT INTO google2user VALUES ({json['google_id']},{user_id})""")
     else:
         user_id = result[0][0]
