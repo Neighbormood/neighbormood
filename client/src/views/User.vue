@@ -7,21 +7,34 @@
     <v-subheader class="pl-0">
       What's your mood?
     </v-subheader>
-    <v-slider v-model="slider" :thumb-size="24" thumb-label="always">
+    <v-slider
+      color="purple"
+      v-model="user.moodScore"
+      :thumb-size="24"
+      :tick-labels="ticksLabels"
+      thumb-label="always"
+      :max="6"
+    >
       <template v-slot:thumb-label="{ value }">
-        {{ satisfactionEmojis[Math.min(Math.floor(value / 10), 9)] }}
+        {{ satisfactionEmojis[value] }}
       </template>
     </v-slider>
-
-    <p>Mood score: {{ slider }}</p>
-    <v-text-field label="What's your mood?"></v-text-field>
-    <!-- <v-btn @click="increaseScore(player_one)">
+    <p class="centerText">I am feeling {{ moodText(user.moodScore) }}</p>
+    <p>Mood score: {{ user.moodScore }}</p>
+    <!--  <v-text-field label="What's your mood?"> </v-text-field> -->
+    <!--     <v-btn @click="increaseScore(player_one)">
       <v-icon large>yo</v-icon>
-    </v-btn>
-    <h3>{{ player_one.score }}</h3> -->
+    </v-btn> -->
+
+    <v-textarea
+      auto-grow
+      filled
+      color="purple"
+      label="Describe your mood"
+      rows="1"
+    ></v-textarea>
   </div>
 </template>
-
 
 <script>
 import moment from "moment";
@@ -29,26 +42,21 @@ import moment from "moment";
 export default {
   data() {
     return {
-      player_one: {
-        score: 0
+      user: {
+        uid: "Get uid",
+        moodScore: 50
       },
       today: moment(String(new Date())).format("DD.MM.YYYY"),
-      satisfactionEmojis: [
-        "😭",
-        "😢",
-        "☹️",
-        "🙁",
-        "😐",
-        "🙂",
-        "😊",
-        "😁",
-        "😄",
-        "😍"
-      ],
-      slider: 50
+      satisfactionEmojis: ["😭", "😢", "🙁", "😐", "🙂", "😊", "😍"],
+      moodLabels: ["Crying", "Sad", "Bad", "Okay", "Good", "Happy", "In Love"]
     };
+  },
+  methods: {
+    moodText(userMoodScore) {
+      console.log(userMoodScore);
+      return this.moodLabels[userMoodScore];
+    }
   }
-
   /*  methods: {
     increaseScore(player) {
       player.score += 1;
@@ -66,6 +74,9 @@ export default {
 
 <style>
 .title {
+  text-align: center;
+}
+.centerText {
   text-align: center;
 }
 </style>
