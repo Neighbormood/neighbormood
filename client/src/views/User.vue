@@ -7,21 +7,38 @@
     <v-subheader class="pl-0">
       What's your mood?
     </v-subheader>
-    <v-slider v-model="slider" :thumb-size="24" thumb-label="always">
+    <v-slider
+      color="purple"
+      v-model="user.moodScore"
+      :thumb-size="24"
+      thumb-label="always"
+      :max="6"
+    >
       <template v-slot:thumb-label="{ value }">
-        {{ satisfactionEmojis[Math.min(Math.floor(value / 10), 9)] }}
+        {{ satisfactionEmojis[value] }}
       </template>
     </v-slider>
 
-    <p>Mood score: {{ slider }}</p>
-    <v-text-field label="What's your mood?"></v-text-field>
-    <!-- <v-btn @click="increaseScore(player_one)">
-      <v-icon large>yo</v-icon>
-    </v-btn>
-    <h3>{{ player_one.score }}</h3> -->
+    <p class="centerText">I am feeling {{ moodText(user.moodScore) }}</p>
+    <p>Mood score: {{ user.moodScore }}</p>
+
+    <v-textarea
+      auto-grow
+      filled
+      color="purple"
+      label="Describe your mood"
+      rows="1"
+      :value="user.moodDescription"
+      @input="updateValue($event)"
+      ref="input"
+    ></v-textarea>
+    <div class="centerText">
+      <v-btn color="primary" large elevation="2" outlined rounded
+        >Save Mood</v-btn
+      >
+    </div>
   </div>
 </template>
-
 
 <script>
 import moment from "moment";
@@ -29,43 +46,50 @@ import moment from "moment";
 export default {
   data() {
     return {
-      player_one: {
-        score: 0
+      user: {
+        uid: "Get uid",
+        moodScore: 3,
+        moodDescription: ""
       },
-      today: moment(String(new Date())).format("DD.MM.YYYY"),
-      satisfactionEmojis: [
-        "😭",
-        "😢",
-        "☹️",
-        "🙁",
-        "😐",
-        "🙂",
-        "😊",
-        "😁",
-        "😄",
-        "😍"
-      ],
-      slider: 50
+      today: moment().format("DD.MM.YYYY HH:mm"),
+      satisfactionEmojis: ["😭", "😢", "🙁", "😐", "🙂", "😊", "😍"],
+      moodLabels: [
+        "Like Crying",
+        "Sad",
+        "Bad",
+        "Okay",
+        "Good",
+        "Happy",
+        "In Love"
+      ]
     };
-  }
-
-  /*  methods: {
-    increaseScore(player) {
-      player.score += 1;
-
-      console.log(player.score);
+  },
+  props: {
+    value: { default: "" },
+    placeholder: { default: "" }
+  },
+  methods: {
+    moodText(userMoodScore) {
+      console.log(userMoodScore);
+      return this.moodLabels[userMoodScore];
     },
-    decreaseScore(player) {
-      if (player.score > 0) {
-        player.score -= 1;
-      }
+
+    updateValue(textMood) {
+      this.user.moodDescription = textMood;
+      console.log(this.user.moodDescription);
     }
-  } */
+  }
 };
 </script>
 
 <style>
+.container {
+  align-items: center;
+}
 .title {
+  text-align: center;
+}
+.centerText {
   text-align: center;
 }
 </style>

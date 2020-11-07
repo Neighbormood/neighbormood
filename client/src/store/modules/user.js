@@ -10,7 +10,7 @@ export default {
   },
   actions: {
     loadUserId({ commit }, id) {
-      commit("setUserId", id)
+      commit("setUserId", id);
     }
   }
-}
+};
