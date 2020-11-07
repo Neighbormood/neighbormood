@@ -14,6 +14,13 @@ export default {
         name: "Ultimate frisbee",
         value: 65
       }
+    ],
+    moods: [
+      {
+        moodScore: 6,
+        moodDescription: "Coding with friends"
+
+      }
     ]
   }
 };
