@@ -23,7 +23,6 @@ WHERE EXISTS (SELECT * FROM tag_user JOIN tag ON tag_user.tag = tag.id WHERE tag
 
 @app.route('/users/<user_id>/')
 def index(user_id):
-    # object = engine.execute(f"""SELECT timestamp,mood from mood where "user"='{user_id}' ORDER BY timestamp ASC;""").fetchall()
     object = engine.execute(
         f"""SELECT timestamp,mood from mood where "user"={user_id} and timestamp <= current_timestamp - interval '30 day' ORDER BY timestamp ASC;""").fetchall()
     returnobj = []
