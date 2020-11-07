@@ -15,6 +15,7 @@ CREATE TABLE "google2user" (
 CREATE INDEX "idx_google2user__user" ON "google2user" ("user");
 
 ALTER TABLE "google2user" ADD CONSTRAINT "fk_google2user__user" FOREIGN KEY ("user") REFERENCES "user" ("id");
+ALTER TABLE "google2user" ALTER column "id" TYPE decimal;
 
 CREATE TABLE "mood" (
   "id" SERIAL PRIMARY KEY,
