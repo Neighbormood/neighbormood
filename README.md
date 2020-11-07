@@ -5,8 +5,11 @@ You can access the app at [neighbormood.github.io](https://neighbormood.github.i
 
 ## The frontend
 Vue.js is our front-end tool of choice and (the build artifact) is hosted as a single page web-app on `neighbormood.github.io`
-To deploy the front-end execute `npm run build` in the client folder.
+To deploy the front-end:
+  * execute `npm run build` in the client folder.
+  * copy and paste the build artifacts into another repository and setup github pages there.
 
 ## The backend.
 The backend code is a flask app hosted on heroku at `neighbormood.herokuapp.com`. The app relies on PostgreSQL as the database.
+The database schema is as seen in `database.sql`
 
