@@ -5,19 +5,18 @@
     <v-divider />
     <!-- Previous posts -->
     <div v-if="show">
+      <v-card v-for="(mood, index) in moods" :key="index" width="100%">
+        <v-card-title>
+          {{ satisfactionEmojis[mood.moodScore] }} {{ mood.moodDescription }}
+        </v-card-title>
+        <v-card-text class="d-flex justify-center">
+          {{ mood.moodDescription }}
+        </v-card-text>
+      </v-card>
 
-    <v-card v-for="(mood, index) in moods" :key="index" width=100%>
-      <v-card-title>
-        {{ satisfactionEmojis[mood.moodScore] }} {{ mood.moodDescription }}
-      </v-card-title>
-      <v-card-text class="d-flex justify-center">
-        {{ mood.moodDescription }}
-      </v-card-text>
-    </v-card>
-    
       <v-divider />
       <div class="centerText">
-    <v-btn
+        <v-btn
           color="primary"
           large
           elevation="2"
@@ -30,7 +29,7 @@
     </div>
     <div v-if="!show">
       <!-- Date picker -->
-     <!--  <v-menu
+      <!--  <v-menu
         v-model="menu"
         :close-on-content-click="false"
         :nudge-right="40"
@@ -85,7 +84,9 @@
         ></v-time-picker>
       <v-divider />
       </v-menu> -->
-<h1 v-for="(mood, index) in moods" :key="index"  class="big-font">{{ satisfactionEmojis[user.moodScore] }}</h1>
+      <h1 v-for="(mood, index) in moods" :key="index" class="big-font">
+        {{ satisfactionEmojis[user.moodScore] }}
+      </h1>
 
       <v-subheader class="pl-0">
         What's your mood?
@@ -98,8 +99,7 @@
         :max="6"
       >
         <template v-slot:thumb-label="{ value }">
-
-{{moodSlider(value)}}
+          {{ moodSlider(value) }}
         </template>
       </v-slider>
 
@@ -134,23 +134,21 @@
 <script>
 import moment from "moment";
 import { mapState } from "vuex";
-import axios from 'axios'
-
+//import axios from "axios";
 
 export default {
-    mounted () {
+  /* mounted() {
     axios
-      .get('https://neighbormood.herokuapp.com/users/2/')
+      .get("https://neighbormood.herokuapp.com/users/2/")
       .then(response => {
-        this.singleMovie = response.data
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch(error => {
-        console.log(error)
-      })
-  },
-    computed: {
-    ...mapState("friends", ["moods"])
+        console.log(error);
+      });
+  }, */
+  computed: {
+    ...mapState("friends", ["moods", "moodHistory"])
   },
   data() {
     return {
@@ -183,7 +181,7 @@ export default {
   methods: {
     moodSlider(score) {
       this.user.moodScore = score;
-      return this.satisfactionEmojis[score]
+      return this.satisfactionEmojis[score];
     },
     moodText(userMoodScore) {
       console.log(userMoodScore);
@@ -205,10 +203,10 @@ export default {
         }
       };
       console.log("Data to send: " + JSON.stringify(obj));
-      this.show = !this.show; 
+      this.show = !this.show;
     },
     addMood() {
-      this.show = !this.show; 
+      this.show = !this.show;
     }
   }
 };

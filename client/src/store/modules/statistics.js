@@ -13,12 +13,13 @@ export default {
     }
   },
   actions: {
-    fetchMoodTrend: async function({ commit }) {
+    fetchMoodTrend: async function ({ commit }, data) {
+
       const valueArray = [];
       const labelArray = [];
       let weekCounter = 1;
       for (let i = 0; i < 29; i++) {
-        valueArray.push(Math.floor(Math.random() * 100));
+        valueArray.push(Math.floor(data[i].mood * 100));
         if (i % 7 === 0 && i != 28) {
           labelArray.push(`Week ${weekCounter}`);
           weekCounter++;
@@ -26,6 +27,9 @@ export default {
           labelArray.push(" ");
         }
       }
+      console.log("DATA:" + JSON.stringify(data))
+      console.log(valueArray)
+      console.log(labelArray)
       commit("setTrendValues", valueArray);
       commit("setTrendLabels", labelArray);
     }

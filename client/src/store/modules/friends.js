@@ -21,6 +21,9 @@ export default {
         moodDescription: "Coding with friends"
 
       }
-    ]
+    ],
+    moodHistory: [{
+      historyData: {}
+    }]
   }
 };
