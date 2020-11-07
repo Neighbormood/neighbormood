@@ -1,9 +1,11 @@
 <template>
-  <nav class="nav" id="nav">
-    <router-link to="/friends"></router-link>
-    <router-link to="/user"><b-icon-house></b-icon-house></router-link>
-    <router-link to="/statistics">Stats</router-link>
-  </nav>
+  <v-bottom-navigation app color="primary">
+    <div class="d-flex align-center">
+      <router-link to="/friends">Friends</router-link>
+      <router-link to="/user"><b-icon-house></b-icon-house></router-link>
+      <router-link to="/statistics">Stats</router-link>
+    </div>
+  </v-bottom-navigation>
 </template>
 
 <style scoped>
