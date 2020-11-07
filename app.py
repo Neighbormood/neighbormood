@@ -11,9 +11,12 @@ connection = engine.connect()
 # /me
 # /me/groups
 # /users/ /
-@app.route('/groups/<group_id>/mood')
-def group_mood(group_id):
-    pass
+@app.route('/groups/<group_name>/mood')
+def group_mood(group_name):
+    return engine.execute(f"""SELECT AVG(recent_mood) FROM (
+SELECT u.id, (SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) AS recent_mood FROM "user" AS u
+WHERE EXISTS (SELECT * FROM tag_user JOIN tag ON tag_user.tag = tag.id WHERE tag_user."user"=u.id AND tag.name='{group_name}')) xyz;""").fetchone()[0]
+
 
 # A welcome message to test our server
 @app.route('/users/<user_id>/')
@@ -26,7 +29,17 @@ if __name__ == '__main__':
 
 
 """
-SELECT u.id, (SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) FROM "user" AS u;
+SELECT AVG(recent_mood) FROM (
+SELECT u.id, (SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) AS recent_mood FROM "user" AS u) xyz;
 
-SELECT u.id, AVG(SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) FROM "user" AS u WHERE EXISTS (SELECT * FROM tag_user WHERE "user"=u.id AND tag=1);
+SELECT u.id, recent_mood SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) FROM "user" AS u WHERE EXISTS (SELECT * FROM tag_user WHERE "user"=u.id AND tag=1);
+
+SELECT AVG(recent_mood) FROM (
+SELECT u.id, (SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) AS recent_mood FROM "user" AS u
+WHERE EXISTS (SELECT * FROM tag_user WHERE "user"=u.id AND tag=1)
+) xyz;
+
+SELECT AVG(recent_mood) FROM (
+SELECT u.id, (SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) AS recent_mood FROM "user" AS u
+WHERE EXISTS (SELECT * FROM tag_user JOIN tag ON tag_user.tag = tag.id WHERE tag_user."user"=u.id AND tag.name='CS 101')) xyz;
 """
