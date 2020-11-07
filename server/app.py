@@ -13,9 +13,9 @@ connection = engine.connect()
 # /users/ /
 @app.route('/groups/<group_name>/mood')
 def group_mood(group_name):
-    return engine.execute(f"""SELECT AVG(recent_mood) FROM (
+    return str(engine.execute(f"""SELECT AVG(recent_mood) FROM (
 SELECT u.id, (SELECT mood FROM mood WHERE "user"=u.id ORDER BY timestamp ASC LIMIT 1) AS recent_mood FROM "user" AS u
-WHERE EXISTS (SELECT * FROM tag_user JOIN tag ON tag_user.tag = tag.id WHERE tag_user."user"=u.id AND tag.name='{group_name}')) xyz;""").fetchone()[0]
+WHERE EXISTS (SELECT * FROM tag_user JOIN tag ON tag_user.tag = tag.id WHERE tag_user."user"=u.id AND tag.name='{group_name}')) xyz;""").fetchone()[0])
 
 
 # A welcome message to test our server
