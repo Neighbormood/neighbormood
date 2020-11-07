@@ -10,4 +10,4 @@ Werkzeug==1.0.1
 wrapt==1.11.2
 sqlalchemy
 psycopg2
-
+flask-cors
