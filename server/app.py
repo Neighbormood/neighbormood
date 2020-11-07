@@ -42,7 +42,7 @@ def user_groups(user_id):
 @app.route('/users/<user_id>/add_mood',methods=["PUT"])
 def add_mood(user_id):
     json = request.json
-    engine.execute(f"""INSERT INTO mood("user",timestamp,mood) VALUES ({json['uid']}, {json['date'] + " " + json['time']}, {json['mood']})""")
+    engine.execute(f"""INSERT INTO mood("user",timestamp,mood) VALUES ({json['uid']}, '{json['date'] + " " + json['time']}', {json['mood']})""")
     return jsonify({'result': True})
 
 @app.route('/sign_user',methods=["POST"])
