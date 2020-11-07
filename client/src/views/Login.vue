@@ -3,29 +3,33 @@
     <h1>Login page</h1>
     <!-- Temporary login link -->
     <button @click="handleClickSignIn">
-      hello
+      Sign in
     </button>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import router from "@/router/index.js";
+
 export default {
+  data() {
+    return {
+      isSignIn: false
+    };
+  },
   methods: {
+    ...mapActions("user", ["loadUserId"]),
     async handleClickSignIn() {
       try {
         const googleUser = await this.$gAuth.signIn();
         if (!googleUser) {
           return null;
         }
-        console.log("googleUser", googleUser);
-        console.log("getId", googleUser.getId());
-        console.log("getBasicProfile", googleUser.getBasicProfile());
-        console.log("getAuthResponse", googleUser.getAuthResponse());
-        console.log(
-          "getAuthResponse",
-          this.$gAuth.GoogleAuth.currentUser.get().getAuthResponse()
-        );
-        this.isSignIn = this.$gAuth.isAuthorized;
+        const userId = googleUser.getId();
+        localStorage.userId = userId;
+        this.loadUserId(userId);
+        // this.isSignIn = this.$gAuth.isAuthorized;
       } catch (error) {
         //on fail do something
         console.error(error);
@@ -35,12 +39,22 @@ export default {
     async handleClickSignOut() {
       try {
         await this.$gAuth.signOut();
-        this.isSignIn = this.$gAuth.isAuthorized;
+        // this.isSignIn = this.$gAuth.isAuthorized;
         console.log("isSignIn", this.$gAuth.isAuthorized);
       } catch (error) {
         console.error(error);
       }
     }
+  },
+  created() {
+    let that = this;
+    let checkGauthLoad = setInterval(function() {
+      that.isSignIn = that.$gAuth.isAuthorized;
+      if (that.isSignIn) {
+        clearInterval(checkGauthLoad)
+        router.push({ name: "User" })
+      };
+    }, 1000);
   }
 };
 </script>
