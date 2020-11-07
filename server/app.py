@@ -14,7 +14,7 @@ connection = engine.connect()
 # A welcome message to test our server
 @app.route('/')
 def index():
-    return engine.execute("SELECT * FROM users").fetchall()[0][0]
+    return engine.execute("SELECT * FROM user").fetchall()[0][0]
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
