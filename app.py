@@ -1,7 +1,12 @@
 # app.py
 from flask import Flask, request, jsonify
-app = Flask(__name__)
+from config import Config
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 
+app = Flask(__name__)
+app.config.from_object(Config)
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 @app.route('/getmsg/', methods=['GET'])
 def respond():
     # Retrieve the name from url parameter
