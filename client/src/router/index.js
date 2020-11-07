@@ -25,6 +25,13 @@ const routes = [
           import(/* webpackChunkName: "statistics" */ "../views/Statistics.vue")
       },
       {
+        path: "/friends",
+        name: "Friends",
+        component: () =>
+          import(/* webpackChunkName: "friends" */ "../views/Friends.vue")
+      },
+      {
+        // Automatic redirect from "/" to user page
         path: "",
         redirect: "/user"
       }
