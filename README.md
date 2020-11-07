@@ -1,4 +1,4 @@
-# Neighbormood - Tune into the emotional wellbeing
+# Neighbormood - Tune into your emotional wellbeing
 
 This repository contains the code for the back-end and the front-end of the Neighbormood app.
 You can access the app at [neighbormood.github.io](https://neighbormood.github.io)
