@@ -29,3 +29,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+#friends-view {
+  margin-top: 2rem
+}
+.v-card {
+  margin-bottom: 1rem
+}
+</style>
