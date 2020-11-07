@@ -3,7 +3,33 @@
     <h1 class="title">Neighbormood</h1>
     <h1 class="title">{{ today }}</h1>
     <v-divider />
+
+    <!-- Previous posts -->
     <div v-if="show">
+
+    <v-card v-for="(mood, index) in moods" :key="index" width=100%>
+      <v-card-title>
+        {{ satisfactionEmojis[mood.moodScore] }} {{ mood.moodDescription }}
+      </v-card-title>
+      <v-card-text class="d-flex justify-center">
+        {{ mood.moodDescription }}
+      </v-card-text>
+    </v-card>
+    
+      <v-divider />
+      <div class="centerText">
+    <v-btn
+          color="primary"
+          large
+          elevation="2"
+          outlined
+          rounded
+          @click="addMood()"
+          >Add Mood</v-btn
+        >
+      </div>
+    </div>
+    <div v-if="!show">
       <!-- Date picker -->
       <v-menu
         v-model="menu"
@@ -106,8 +132,12 @@
 
 <script>
 import moment from "moment";
+import { mapState } from "vuex";
 
 export default {
+    computed: {
+    ...mapState("friends", ["moods"])
+  },
   data() {
     return {
       user: {
@@ -161,7 +191,10 @@ export default {
         }
       };
       console.log("Data to send: " + JSON.stringify(obj));
-      /* this.show = false; */
+      this.show = !this.show; 
+    },
+    addMood() {
+      this.show = !this.show; 
     }
   }
 };
