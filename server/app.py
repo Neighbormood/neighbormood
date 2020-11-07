@@ -4,8 +4,10 @@ from flask import Flask, request, jsonify
 from config import Config
 from sqlalchemy import create_engine
 from sqlalchemy.ext.automap import automap_base
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(Config)
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 connection = engine.connect()
@@ -23,10 +25,10 @@ WHERE EXISTS (SELECT * FROM tag_user JOIN tag ON tag_user.tag = tag.id WHERE tag
 @app.route('/users/<user_id>/')
 def index(user_id):
     # object = engine.execute(f"""SELECT timestamp,mood from mood where "user"='{user_id}' ORDER BY timestamp ASC;""").fetchall()
-    object = engine.execute(f"""SELECT timestamp,mood from mood where "user"='1' and timestamp <= current_timestamp - interval '30 day' ORDER BY timestamp ASC;""").fetchall()
+    object = engine.execute(f"""SELECT timestamp,mood from mood where "user"={user_id} and timestamp <= current_timestamp - interval '30 day' ORDER BY timestamp ASC;""").fetchall()
     returnobj = []
     for datetime, mood in object:
-        returnobj.append({'datetime':str(datetime), 'mood': mood})
+        returnobj.append({'datetime': str(datetime), 'mood': mood})
     return json.dumps(returnobj)
 
 @app.route('/users/<user_id>/groups')
