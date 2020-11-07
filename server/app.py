@@ -21,7 +21,7 @@ WHERE EXISTS (SELECT * FROM tag_user JOIN tag ON tag_user.tag = tag.id WHERE tag
 # A welcome message to test our server
 @app.route('/users/<user_id>/')
 def index(user_id):
-    return str(engine.execute(f"""SELECT timestamp,mood from mood where "user"={user_id} ORDER BY timestamp ASC;"""))
+    return str(engine.execute(f"""SELECT timestamp,mood from mood where "user"='{user_id}' ORDER BY timestamp ASC;""").fetchone()[0])
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
