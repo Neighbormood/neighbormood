@@ -13,7 +13,7 @@ connection = engine.connect()
 # /users/ /
 @app.route('/groups/<group_id>/mood')
 def group_mood(group_id):
-
+    pass
 
 # A welcome message to test our server
 @app.route('/users/<user_id>/')
