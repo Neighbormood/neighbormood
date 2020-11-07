@@ -3,7 +3,6 @@
     <h1 class="title">Neighbormood</h1>
     <h1 class="title">{{ today }}</h1>
     <v-divider />
-
     <!-- Previous posts -->
     <div v-if="show">
 
@@ -31,7 +30,7 @@
     </div>
     <div v-if="!show">
       <!-- Date picker -->
-      <v-menu
+     <!--  <v-menu
         v-model="menu"
         :close-on-content-click="false"
         :nudge-right="40"
@@ -55,7 +54,7 @@
           @click="$refs.menu.save(date)"
         ></v-date-picker>
       </v-menu>
-      <!-- Time picker -->
+     
       <v-menu
         ref="menu"
         v-model="menu2"
@@ -84,8 +83,9 @@
           format="24hr"
           @click:minute="$refs.menu.save(user.time)"
         ></v-time-picker>
-      </v-menu>
       <v-divider />
+      </v-menu> -->
+<h1 v-for="(mood, index) in moods" :key="index"  class="big-font">{{ satisfactionEmojis[user.moodScore] }}</h1>
 
       <v-subheader class="pl-0">
         What's your mood?
@@ -98,7 +98,8 @@
         :max="6"
       >
         <template v-slot:thumb-label="{ value }">
-          {{ satisfactionEmojis[value] }}
+
+{{moodSlider(value)}}
         </template>
       </v-slider>
 
@@ -133,8 +134,21 @@
 <script>
 import moment from "moment";
 import { mapState } from "vuex";
+import axios from 'axios'
+
 
 export default {
+    mounted () {
+    axios
+      .get('https://neighbormood.herokuapp.com/users/2/')
+      .then(response => {
+        this.singleMovie = response.data
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
     computed: {
     ...mapState("friends", ["moods"])
   },
@@ -166,11 +180,11 @@ export default {
       ]
     };
   },
-  props: {
-    value: { default: "" },
-    placeholder: { default: "" }
-  },
   methods: {
+    moodSlider(score) {
+      this.user.moodScore = score;
+      return this.satisfactionEmojis[score]
+    },
     moodText(userMoodScore) {
       console.log(userMoodScore);
       return this.moodLabels[userMoodScore];
@@ -205,6 +219,10 @@ export default {
   align-items: center;
 }
 .title {
+  text-align: center;
+}
+.big-font {
+  font-size: 9.25rem;
   text-align: center;
 }
 .centerText {
