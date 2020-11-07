@@ -27,9 +27,9 @@ export default {
           labelArray.push(" ");
         }
       }
-      console.log("DATA:" + JSON.stringify(data))
-      console.log(valueArray)
-      console.log(labelArray)
+      /*  console.log("DATA:" + JSON.stringify(data))
+       console.log(valueArray)
+       console.log(labelArray) */
       commit("setTrendValues", valueArray);
       commit("setTrendLabels", labelArray);
     }

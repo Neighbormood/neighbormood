@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="loading"><loader /></div>
-    <div v-else>
+    <div v-else class="container">
       <v-card class="mt-4 mx-auto" max-width="400">
         <v-card-title>
           <div class="title font-weight-light mb-2">
@@ -11,6 +11,7 @@
         <v-sheet class="v-sheet--offset mx-auto" max-width="calc(100% - 32px)">
           <v-sparkline
             :labels="trendLabels"
+            label-size="14"
             :value="trendValues"
             :gradient="gradient"
             :smooth="radius || false"

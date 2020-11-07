@@ -17,7 +17,7 @@
       <v-divider />
       <div class="centerText">
         <v-btn
-          color="primary"
+          color="purple"
           large
           elevation="2"
           outlined
@@ -118,7 +118,7 @@
       ></v-textarea>
       <div class="centerText">
         <v-btn
-          color="primary"
+          color="purple"
           large
           elevation="2"
           outlined
