@@ -13,7 +13,7 @@
       </router-link>
       <router-link to="/statistics">
         <v-icon>
-            mdi-chart-bar
+          mdi-chart-bar
         </v-icon>
       </router-link>
     </div>
@@ -22,6 +22,6 @@
 
 <style scoped>
 .d-flex {
-    width: 100%
+  width: 100%;
 }
 </style>
