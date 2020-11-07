@@ -32,9 +32,9 @@ export default {
 
 <style scoped>
 #friends-view {
-  margin-top: 2rem
+  margin-top: 2rem;
 }
 .v-card {
-  margin-bottom: 1rem
+  margin-bottom: 1rem;
 }
 </style>
