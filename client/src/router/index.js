@@ -24,7 +24,9 @@ const routes = [
         path: "/statistics",
         name: "Statistics",
         component: () =>
-          import(/* webpackChunkName: "statistics" */ "../views/Statistics.vue"),
+          import(
+            /* webpackChunkName: "statistics" */ "../views/Statistics.vue"
+          ),
         meta: { requiresAuth: true }
       },
       {

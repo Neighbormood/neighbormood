@@ -51,9 +51,9 @@ export default {
     let checkGauthLoad = setInterval(function() {
       that.isSignIn = that.$gAuth.isAuthorized;
       if (that.isSignIn) {
-        clearInterval(checkGauthLoad)
-        router.push({ name: "User" })
-      };
+        clearInterval(checkGauthLoad);
+        router.push({ name: "User" });
+      }
     }, 1000);
   }
 };
