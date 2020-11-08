@@ -18,8 +18,13 @@ export default {
     moods: [
       {
         moodScore: 6,
-        moodDescription: "Coding with friends"
-
+        moodShortDesc: "Coding with friends",
+        moodDescription: "It was awesome to code in Junction!"
+      },
+      {
+        moodScore: 5,
+        moodShortDesc: "Great team",
+        moodDescription: "Feels great to have inspired and motivated friends to code with"
       }
     ],
     moodHistory: [{

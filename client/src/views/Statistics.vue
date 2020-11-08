@@ -25,6 +25,11 @@
           ></v-sparkline>
         </v-sheet>
       </v-card>
+      <v-divider />
+      <div class="center">
+        <h1 class="title">How you felt on average</h1>
+        <h1>🙂</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -67,3 +72,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.center {
+  text-align: center;
+}
+</style>

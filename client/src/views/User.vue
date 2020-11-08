@@ -1,13 +1,25 @@
 <template>
   <div id="user-view" class="container">
     <h1 class="title">Neighbormood</h1>
-    <h1 class="title">{{ today }}</h1>
+    <h1 class="title">Today<!-- {{ today }} --></h1>
     <v-divider />
     <!-- Previous posts -->
     <div v-if="show">
-      <v-card v-for="(mood, index) in moods" :key="index" width="100%">
+      <h1 class="larger-font">Average mood</h1>
+      <!--  <h1 v-for="(mood, index) in moods" :key="index" class="big-font">
+        {{ satisfactionEmojis[mood.moodScore] }}
+      </h1> -->
+      <h1 class="big-font">
+        {{ satisfactionEmojis[6] }}
+      </h1>
+      <v-card
+        class="card-padding"
+        v-for="(mood, index) in moods"
+        :key="index"
+        width="100%"
+      >
         <v-card-title>
-          {{ satisfactionEmojis[mood.moodScore] }} {{ mood.moodDescription }}
+          {{ satisfactionEmojis[mood.moodScore] }} {{ mood.moodShortDesc }}
         </v-card-title>
         <v-card-text class="d-flex justify-center">
           {{ mood.moodDescription }}
@@ -84,7 +96,7 @@
         ></v-time-picker>
       <v-divider />
       </v-menu> -->
-      <h1 v-for="(mood, index) in moods" :key="index" class="big-font">
+      <h1 class="big-font">
         {{ satisfactionEmojis[user.moodScore] }}
       </h1>
 
@@ -154,7 +166,7 @@ export default {
     return {
       user: {
         uid: "UID",
-        moodScore: 3,
+        moodScore: 4,
         moodDescription: "",
         date: new Date().toISOString().substr(0, 10),
         time: moment().format("HH:mm")
@@ -219,6 +231,10 @@ export default {
 .title {
   text-align: center;
 }
+.larger-font {
+  font-size: 2.25rem;
+  text-align: center;
+}
 .big-font {
   font-size: 9.25rem;
   text-align: center;
@@ -230,5 +246,8 @@ export default {
   min-height: 32px;
   margin-left: 8px;
   margin-right: 16px;
+}
+.card-padding {
+  margin-top: 0.5rem;
 }
 </style>
